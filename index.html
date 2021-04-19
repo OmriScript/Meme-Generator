@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">  
+
+    <title>Memegen</title>
+</head>
+<body onload="onInit()">
+    <header class="container flex space-between">
+        <div class="logo">
+            memegen
+        </div>
+        <div class="nav-links">
+            <ul class="clean-list flex">
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Editor</a></li>
+                <li><a href="#">My Memes</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="editor-container container">
+        <div class="canvas-container container">
+            <canvas class="meme-canvas" height="500" width="500">
+            </canvas>
+        </div>
+        <div class="control-box flex column align-center justify-center">
+            <div class="row">
+                <input type="text" name="text-line" placeholder="Text line" oninput="onEditTextLine(this)">
+            </div>
+            <div class="row">
+                <button><img class="icon" src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt=""></button>
+                <button><img class="icon" src="icons/add.png" alt=""></button>
+                <button><img class="icon" src="icons/trash.png" alt=""></button>
+            </div>
+            <div class="row">
+                <button><img class="icon" src="icons/increase font - icon.png" alt="" onclick="onChangeTextSize(+5)"></button>
+                <button><img class="icon" src="icons/decrease font - icon.png" alt="" onclick="onChangeTextSize(-5)"></button>
+                <button><img class="icon" src="icons/align-to-left.png" alt=""></button>
+                <button><img class="icon" src="icons/center-text-alignment.png" alt=""></button>
+                <button><img class="icon" src="icons/align-to-right.png" alt=""></button>
+            </div>
+            <div class="row">
+                <select name="lang-select">
+                    <option value="impact">Impact</option>
+                    <option value="impact">Ubuntu</option>
+                    <option value="impact">Noto-sans-jp</option>
+                </select>
+                <button><img class="icon" src="icons/text stroke.png" alt=""></button>
+                <button><img class="icon" src="icons/paint-board-and-brush.png" alt=""></button>
+            </div>
+            <div class="row">
+                <button>Share</button>
+                <button>Download</button>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div class="gallery container">
+        <section class="search-menu">
+            <input class="search-bar" placeholder="Enter search keyword">
+            <div class="search-words">funny comics dogs</div>
+            <a href="#">more...</a>
+        </section>
+        <section class="gallery-images">    
+        </section>
+
+        <section class="about">
+            <div class="image-container">
+                <img src="" alt="">
+            </div>
+            <div class="content-container">
+                <h4>Omri Madar</h4>
+                <p>I am invisible.</p>
+                <div class="social-links">
+                    <ul class="clean-list flex">
+                        <li><a href="">facebook</a></li>
+                        <li><a href="">github</a></li>
+                        <li><a href="">linkedin</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+
+    <footer class="container text-center">
+        <h4>memegen</h4>
+        <p>All rights reserved 2021</p>
+    </footer>
+    
+    <script src="js/services/util-service.js"></script>
+    <script src="js/services/storage-service.js"></script>
+    <script src="js/services/meme-service.js"></script>
+    <script src="js/meme-controller.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,13 @@
+/* MEDIA QUERIES */
+
+/* SMALL */
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 600px;
+  }
+}
+
+/* MEDIUM */
+
+/* LARGE */

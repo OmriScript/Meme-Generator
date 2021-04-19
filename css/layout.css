@@ -1,0 +1,9 @@
+/* LAYOUT */
+
+.row {
+  padding: 5px;
+}
+
+li:not(:last-child) {
+  margin-right: 15px;
+}
