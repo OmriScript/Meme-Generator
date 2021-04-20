@@ -81,7 +81,6 @@
 
   .main-nav a {
     display: block;
-    width: 200px;
     text-align: center;
     padding: 12px 0;
     transition: background-color 0.3s;

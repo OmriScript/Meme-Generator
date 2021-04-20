@@ -60,6 +60,7 @@ function renderGallery() {
 
 function onClickImg(imgId) {
   clickImg(imgId);
+  showEditorHideGallery();
   renderCanvas();
 }
 
@@ -122,4 +123,14 @@ function onMarkSelectedLine() {
 function toggleMenu() {
   console.log('toggleMenu');
   document.body.classList.toggle('menu-open');
+}
+
+function showEditorHideGallery() {
+  document.querySelector('.editor-container').style.display = 'flex';
+  document.querySelector('.gallery-container').style.display = 'none';
+}
+
+function showGalleryHideEditor() {
+  document.querySelector('.editor-container').style.display = 'none';
+  document.querySelector('.gallery-container').style.display = 'block';
 }

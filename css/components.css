@@ -21,7 +21,6 @@ footer {
 }
 
 .editor-container {
-  /* background-color: red; */
   display: none;
   justify-content: space-evenly;
   align-items: center;
@@ -43,6 +42,11 @@ button {
   padding: 4px;
 }
 
+.color-picker {
+  width: 42px;
+  height: 45px;
+}
+
 button:hover {
   background-color: #eee;
 }
@@ -57,7 +61,7 @@ button:hover {
   background-color: #fff;
 }
 
-.main-nav a {
+s .main-nav a {
   width: 100%;
 }
 
@@ -66,8 +70,31 @@ li {
   justify-content: center;
 }
 
+input[name='text-line'] {
+  /* background-color: red; */
+  padding: 10px;
+}
+
+select[name='lang-select'] {
+  padding: 10px;
+}
+
+/* continue here */
+
+input[type='color'] {
+  opacity: 0;
+  border: none;
+  /* visibility: hidden; */
+}
+
+input[type='color']:focus {
+  outline: none;
+}
+
 footer {
   background-color: #ffd195;
   color: black;
   font-size: 1.1rem;
+  /* fix here.  */
+  margin-top: 176px;
 }
