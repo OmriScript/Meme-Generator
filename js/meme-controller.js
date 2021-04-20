@@ -16,6 +16,11 @@ function onDrawText(currLine) {
   gCtx.textAlign = `${currLine.align}`;
   gCtx.fillText(`${currLine.txt}`, `${currLine.pos.x}`, `${currLine.pos.y}`);
   gCtx.strokeText(`${currLine.txt}`, `${currLine.pos.x}`, `${currLine.pos.y}`);
+
+  // put border on curr line
+  // let currLineIdx = getSelectedLineIdx();
+
+  //
 }
 
 function renderCanvas() {
@@ -24,10 +29,15 @@ function renderCanvas() {
   let img = new Image();
   img.src = imgUrl;
   img.onload = drawImg(img);
+
   let txt = getLineTxt();
   document.querySelector('input[name="text-line"]').value = txt;
-  let currLineIdx = getSelectedLineIdx();
-  onDrawText(currMeme.lines[currLineIdx]);
+
+  let lines = getLines();
+  lines.map((line) => onDrawText(line));
+  // onDrawText(currMeme.lines[currLineIdx]);
+  // console.log(getLines());
+  // onMarkSelectedLine();
 }
 
 function onEditTextLine(el) {
@@ -56,4 +66,60 @@ function onClickImg(imgId) {
 function onChangeTextSize(fontChange) {
   setFontSize(fontChange);
   renderCanvas();
+}
+
+function onTextLocationYChange(yChange) {
+  textLocationYChange(yChange);
+  renderCanvas();
+}
+
+function onTextAlign(alignDirection) {
+  switch (alignDirection) {
+    case 'left':
+      setTextXPos(10);
+      break;
+    case 'center':
+      setTextXPos(gCanvas.width / 2);
+      break;
+    case 'right':
+      setTextXPos(gCanvas.width - 10);
+      break;
+  }
+  textAlign(alignDirection);
+  renderCanvas();
+}
+
+function onDeleteLine() {
+  deleteLine();
+  console.log('onDeleteLine activated');
+  renderCanvas();
+}
+
+function onAddLine() {
+  console.log('add');
+  addLine();
+  renderCanvas();
+}
+
+function onGetCanvasWidth() {
+  return gCanvas.width;
+}
+
+function onGetCanvasHeight() {
+  return gCanvas.height;
+}
+
+function onChangeLine() {
+  changeLine();
+  renderCanvas();
+}
+
+function onMarkSelectedLine() {
+  let currLineIdx = getSelectedLineIdx();
+  // console.log(currLineIdx, 'currLineIdx');
+}
+
+function toggleMenu() {
+  console.log('toggleMenu');
+  document.body.classList.toggle('menu-open');
 }

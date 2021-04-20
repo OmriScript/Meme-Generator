@@ -4,6 +4,33 @@
   border: 1px solid black;
 }
 
+header,
+footer {
+  height: 120px;
+}
+
+.logo {
+  user-select: none;
+  color: #fdb556;
+  text-shadow: 2px 2px #6b5333;
+  font-size: 2rem;
+}
+
+.main-nav a:hover {
+  color: #333;
+}
+
+.editor-container {
+  /* background-color: red; */
+  display: none;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.gallery-container {
+  padding: 20px 0px;
+}
+
 .icon {
   /* width: 50px;
   height: 50px; */
@@ -18,4 +45,29 @@ button {
 
 button:hover {
   background-color: #eee;
+}
+
+.btn-menu {
+  background-color: #fdb556;
+  color: #fff;
+}
+
+.btn-menu:hover {
+  color: #fdb556;
+  background-color: #fff;
+}
+
+.main-nav a {
+  width: 100%;
+}
+
+li {
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  background-color: #ffd195;
+  color: black;
+  font-size: 1.1rem;
 }

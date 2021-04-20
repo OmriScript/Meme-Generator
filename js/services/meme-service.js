@@ -3,7 +3,23 @@
 let gKeywords = { crazy: 1, human: 1, animal: 1, happy: 1 };
 let gImgs = [
   { id: 1, url: 'img/1.jpg', keywords: ['crazy', 'human'] },
-  { id: 2, url: 'img/2.jpg', keywords: ['animal', 'happy'] },
+  { id: 2, url: 'img/2.jpg', keywords: ['animal', 'happy', 'love'] },
+  { id: 3, url: 'img/3.jpg', keywords: ['animal', 'human', 'sleep', 'baby'] },
+  { id: 4, url: 'img/4.jpg', keywords: ['animal', 'happy', 'sleep'] },
+  { id: 5, url: 'img/5.jpg', keywords: ['human', 'baby', 'funny'] },
+  { id: 6, url: 'img/6.jpg', keywords: ['human'] },
+  { id: 7, url: 'img/7.jpg', keywords: ['human', 'baby'] },
+  { id: 8, url: 'img/8.jpg', keywords: ['human', 'smiling'] },
+  { id: 9, url: 'img/9.jpg', keywords: ['human', 'baby'] },
+  { id: 10, url: 'img/10.jpg', keywords: ['human', 'happy'] },
+  { id: 11, url: 'img/11.jpg', keywords: ['human', 'gay'] },
+  { id: 12, url: 'img/12.jpg', keywords: ['human'] },
+  { id: 13, url: 'img/13.jpg', keywords: ['human', 'toast'] },
+  { id: 14, url: 'img/14.jpg', keywords: ['human'] },
+  { id: 15, url: 'img/15.jpg', keywords: ['human'] },
+  { id: 16, url: 'img/16.jpg', keywords: ['human'] },
+  { id: 17, url: 'img/17.jpg', keywords: ['human', 'suit'] },
+  { id: 18, url: 'img/18.jpg', keywords: ['toy', 'movie'] },
 ];
 
 let gMeme = {
@@ -32,6 +48,9 @@ function getCanvasImgId() {
 }
 
 function getLineTxt() {
+  if (!gMeme.lines.length) {
+    return '';
+  }
   let lineIdx = gMeme.selectedLineIdx;
   return gMeme.lines[lineIdx].txt;
 }
@@ -47,6 +66,10 @@ function editSelectedLineTxt(text) {
 
 function getCurrMeme() {
   return gMeme;
+}
+
+function getLines() {
+  return gMeme.lines;
 }
 
 function getImgById(imgId) {
@@ -68,10 +91,58 @@ function clickImg(imgId) {
 
 function setFontSize(sizeChange) {
   let fontSize = gMeme.lines[gMeme.selectedLineIdx].size;
-  // DOTO: fix font size wont change after limit
-  if (fontSize >= 60 || fontSize <= 25) {
+  // limit font size between 25 and 60
+  if (
+    (fontSize >= 60 && sizeChange > 0) ||
+    (fontSize <= 25 && sizeChange < 0)
+  ) {
     return;
   }
   gMeme.lines[gMeme.selectedLineIdx].size += sizeChange;
-  console.log(gMeme.lines[gMeme.selectedLineIdx].size);
+}
+
+function textLocationYChange(yChange) {
+  gMeme.lines[gMeme.selectedLineIdx].pos.y += yChange;
+}
+
+function setTextXPos(xPos) {
+  gMeme.lines[gMeme.selectedLineIdx].pos.x = xPos;
+}
+
+function textAlign(alignDirection) {
+  gMeme.lines[gMeme.selectedLineIdx].align = alignDirection;
+}
+
+function deleteLine() {
+  // if (!gMeme.lines) return;
+  let lineIdx = gMeme.selectedLineIdx;
+  // console.log('lineIdx', lineIdx);
+  gMeme.lines.splice(lineIdx, 1);
+  if (!gMeme.lines[gMeme.selectedLineIdx + 1]) gMeme.selectedLineIdx = 0;
+}
+
+function addLine() {
+  let newLine = _createLine();
+  gMeme.lines.push(newLine);
+  gMeme.selectedLineIdx = gMeme.lines.length - 1;
+}
+
+function _createLine() {
+  return {
+    txt: 'Enter New Text Here',
+    size: 40,
+    align: 'left',
+    color: 'white',
+    pos: { x: 10, y: onGetCanvasHeight() / 2 },
+  };
+}
+
+function changeLine() {
+  // console.log(gMeme.lines[1]);
+  // if(gMeme.selectedLineIdx)
+  if (gMeme.lines[gMeme.selectedLineIdx + 1]) {
+    gMeme.selectedLineIdx++;
+  } else {
+    gMeme.selectedLineIdx = 0;
+  }
 }

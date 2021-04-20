@@ -10,23 +10,26 @@
     <title>Memegen</title>
 </head>
 <body onload="onInit()">
-    <header class="container flex space-between">
-        <div class="logo">
-            memegen
-        </div>
-        <div class="nav-links">
-            <ul class="clean-list flex">
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Editor</a></li>
-                <li><a href="#">My Memes</a></li>
-                <li><a href="#">About</a></li>
-            </ul>
-        </div>
+
+
+    <div class="main-screen" onclick="toggleMenu()"></div>
+
+    <header class="container flex space-between align-center">
+        <div class="logo">Memegen</div>
+        
+        <ul class="main-nav clean-list flex">
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Editor</a></li>
+            <li><a href="#">My Memes</a></li>
+            <!-- <li><a href="#">About</a></li> -->
+        </ul>
+
+        <button class="btn-menu" onclick="toggleMenu()">☰</button>
     </header>
 
 
-    <div class="editor-container container">
-        <div class="canvas-container container">
+    <div class="editor-container container flex">
+        <div class="canvas-container">
             <canvas class="meme-canvas" height="500" width="500">
             </canvas>
         </div>
@@ -35,16 +38,18 @@
                 <input type="text" name="text-line" placeholder="Text line" oninput="onEditTextLine(this)">
             </div>
             <div class="row">
-                <button><img class="icon" src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt=""></button>
-                <button><img class="icon" src="icons/add.png" alt=""></button>
-                <button><img class="icon" src="icons/trash.png" alt=""></button>
+                <button><img class="icon" src="icons/arrow-up.png" alt="" onclick="onTextLocationYChange(-1)"></button>
+                <button><img class="icon" src="icons/arrow-down.png" alt="" onclick="onTextLocationYChange(1)"></button>
+                <button><img class="icon" src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="" onclick="onChangeLine()"></button>
+                <button><img class="icon" src="icons/add.png" alt="" onclick="onAddLine()"></button>
+                <button><img class="icon" src="icons/trash.png" alt="" onclick="onDeleteLine()"></button>
             </div>
             <div class="row">
-                <button><img class="icon" src="icons/increase font - icon.png" alt="" onclick="onChangeTextSize(+5)"></button>
-                <button><img class="icon" src="icons/decrease font - icon.png" alt="" onclick="onChangeTextSize(-5)"></button>
-                <button><img class="icon" src="icons/align-to-left.png" alt=""></button>
-                <button><img class="icon" src="icons/center-text-alignment.png" alt=""></button>
-                <button><img class="icon" src="icons/align-to-right.png" alt=""></button>
+                <button><img class="icon" src="icons/increase font - icon.png" alt="" onclick="onChangeTextSize(1)"></button>
+                <button><img class="icon" src="icons/decrease font - icon.png" alt="" onclick="onChangeTextSize(-1)"></button>
+                <button><img class="icon" src="icons/align-to-left.png" alt="" onclick="onTextAlign('left')"></button>
+                <button><img class="icon" src="icons/center-text-alignment.png" alt="" onclick="onTextAlign('center')"></button>
+                <button><img class="icon" src="icons/align-to-right.png" alt="" onclick="onTextAlign('right')"></button>
             </div>
             <div class="row">
                 <select name="lang-select">
@@ -60,20 +65,20 @@
                 <button>Download</button>
             </div>
         </div>
-        
     </div>
 
 
-    <div class="gallery container">
-        <section class="search-menu">
+    <div class="gallery-container container">
+        <!-- <section class="search-menu">
             <input class="search-bar" placeholder="Enter search keyword">
             <div class="search-words">funny comics dogs</div>
             <a href="#">more...</a>
-        </section>
-        <section class="gallery-images">    
+        </section> -->
+
+        <section class="gallery-images grid justify-center align-center">    
         </section>
 
-        <section class="about">
+        <!-- <section class="about">
             <div class="image-container">
                 <img src="" alt="">
             </div>
@@ -88,13 +93,13 @@
                     </ul>
                 </div>
             </div>
-        </section>
+        </section> -->
     </div>
 
     
 
-    <footer class="container text-center">
-        <h4>memegen</h4>
+    <footer class="flex column space-evenly align-center">
+        <h3>memegen</h3>
         <p>All rights reserved 2021</p>
     </footer>
     

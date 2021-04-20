@@ -1,6 +1,6 @@
 @import './base.css';
+@import './components.css';
 @import './typography.css';
 @import './media-queries.css';
 @import './layout.css';
-@import './components.css';
 @import './helpers.css';
