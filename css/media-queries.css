@@ -1,7 +1,6 @@
 /* MEDIA QUERIES */
 
 /* SMALL */
-
 @media (max-width: 640px) {
   .container {
     max-width: 600px;
@@ -9,7 +8,6 @@
 }
 
 /* MEDIUM */
-
 @media (min-width: 900px) {
   .btn-menu {
     display: none;
@@ -30,11 +28,15 @@
     width: 60%;
   }
 
+  .main-nav a {
+    width: 100%;
+  }
+
   .editor-container {
     flex-direction: column;
   }
 
-  .main-screen {
+  .modal-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -42,14 +44,12 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
-
     pointer-events: none;
-
     opacity: 0;
     transition: opacity 0.8s;
   }
 
-  body.menu-open .main-screen {
+  body.menu-open .modal-screen {
     pointer-events: auto;
     opacity: 1;
   }
@@ -68,6 +68,7 @@
   }
 
   body.menu-open .main-nav {
+    z-index: 1;
     transform: translateX(0);
   }
 

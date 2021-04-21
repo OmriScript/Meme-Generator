@@ -1,5 +1,6 @@
 'use strict';
 
+const KEY = 'memes';
 let gSavedMemes = [];
 let gKeywords = { crazy: 1, human: 1, animal: 1, happy: 1 };
 let gImgs = [
@@ -34,6 +35,7 @@ let gMeme = {
       color: '#ffffff',
       font: 'Impact',
       pos: { x: 10, y: 50 },
+      isDragging: true,
     },
     {
       txt: 'Enter Text Here 2',
@@ -42,6 +44,7 @@ let gMeme = {
       color: '#ffffff',
       font: 'Impact',
       pos: { x: 10, y: 480 },
+      isDragging: false,
     },
   ],
 };
@@ -56,14 +59,6 @@ function getLineTxt() {
   }
   let lineIdx = gMeme.selectedLineIdx;
   return gMeme.lines[lineIdx].txt;
-}
-
-function getSelectedLineIdx() {
-  return gMeme.selectedLineIdx;
-}
-
-function getSelectedLine() {
-  return gMeme.lines[gMeme.selectedLineIdx];
 }
 
 function editSelectedLineTxt(text) {
@@ -121,9 +116,8 @@ function textAlign(alignDirection) {
 }
 
 function deleteLine() {
-  // if (!gMeme.lines) return;
+  if (!gMeme.lines) return;
   let lineIdx = gMeme.selectedLineIdx;
-  // console.log('lineIdx', lineIdx);
   gMeme.lines.splice(lineIdx, 1);
   if (!gMeme.lines[gMeme.selectedLineIdx + 1]) gMeme.selectedLineIdx = 0;
 }
@@ -131,7 +125,9 @@ function deleteLine() {
 function addLine() {
   let newLine = _createLine();
   gMeme.lines.push(newLine);
+  setDraggingBool(false);
   gMeme.selectedLineIdx = gMeme.lines.length - 1;
+  setDraggingBool(true);
 }
 
 function _createLine() {
@@ -142,16 +138,19 @@ function _createLine() {
     color: '#ffffff',
     font: 'Impact',
     pos: { x: 10, y: onGetCanvasHeight() / 2 },
+    isDragging: false,
   };
 }
 
 function changeLine() {
-  // console.log(gMeme.lines[1]);
-  // if(gMeme.selectedLineIdx)
   if (gMeme.lines[gMeme.selectedLineIdx + 1]) {
+    setDraggingBool(false);
     gMeme.selectedLineIdx++;
+    setDraggingBool(true);
   } else {
+    setDraggingBool(false);
     gMeme.selectedLineIdx = 0;
+    setDraggingBool(true);
   }
 }
 
@@ -203,6 +202,7 @@ function resetMeme() {
         color: '#ffffff',
         font: 'Impact',
         pos: { x: 10, y: 50 },
+        isDragging: true,
       },
       {
         txt: 'Enter Text Here 2',
@@ -211,13 +211,33 @@ function resetMeme() {
         color: '#ffffff',
         font: 'Impact',
         pos: { x: 10, y: 480 },
+        isDragging: false,
       },
     ],
   };
 }
 
-function saveMeme() {
+function saveMeme(imageCanvas) {
+  gMeme.imgCanvas = imageCanvas;
+  gMeme.id = makeId();
   gSavedMemes.push(gMeme);
-  // console.log(gSavedMemes);
-  // console.log(gMeme);
+  saveToStorage(KEY, gSavedMemes);
+  resetMeme();
+}
+
+function getSavedMemes() {
+  let memes = loadFromStorage(KEY);
+  return memes;
+}
+
+function getImgSrcById(id) {
+  return gImgs[id - 1].url;
+}
+
+function getIsDragging() {
+  return gMeme.lines[gMeme.selectedLineIdx].isDragging;
+}
+
+function setDraggingBool(boolean) {
+  gMeme.lines[gMeme.selectedLineIdx].isDragging = boolean;
 }
