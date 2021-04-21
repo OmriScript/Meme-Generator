@@ -51,36 +51,29 @@
                 <button><img class="icon" src="icons/align-to-right.png" alt="" onclick="onTextAlign('right')"></button>
             </div>
             <div class="row">
-                <select name="lang-select">
-                    <option value="impact">Impact</option>
-                    <option value="impact">Ubuntu</option>
-                    <option value="impact">Noto-sans-jp</option>
+                <select name="font-select" onchange="onFontChange(this)">
+                    <option value="Impact">Impact</option>
+                    <option value="Ubuntu">Ubuntu</option>
+                    <option value="Noto-sans-jp">Noto-sans-jp</option>
                 </select>
                 <button class="color-picker">
-                    <label for="stroke-color-picker">
                         <img class="icon" src="icons/text stroke.png" alt="">
-                        <input oninput="onChangeColor()" type="color" id="stroke-color-picker">
-                    </label>
+                        <input oninput="onChangeStrokeColor(this)" onclick="onGetStrokeColor()" type="color" id="stroke-color-picker">
                 </button>
-
                 <button class="color-picker">
-                    <label for="text-color-picker">
                         <img class="icon" src="icons/paint-board-and-brush.png" alt="">
-                        <input oninput="onChangeColor()" type="color" id="text-color-picker">
-                    </label>
+                        <input oninput="onChangeTextColor(this)" onclick="onGetTextColor()" type="color" id="text-color-picker">
                 </button>
-
             </div>
             <div class="row">
-                <button>Share</button>
-                <button>Download</button>
-            </div>
+                <!-- <button>Share</button> -->
 
-            
+                <a href="#" onclick="downloadCanvas(this)">Download</a>
+                <button onclick="onSaveMeme()">Save meme</button>
+            </div>
         </div>
     </div>
-
-
+    
     <div class="gallery-container container">
         <!-- <section class="search-menu">
             <input class="search-bar" placeholder="Enter search keyword">

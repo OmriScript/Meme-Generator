@@ -75,20 +75,26 @@ input[name='text-line'] {
   padding: 10px;
 }
 
-select[name='lang-select'] {
+select[name='font-select'] {
   padding: 10px;
+  appearance: none;
 }
 
-/* continue here */
+select[name='font-select'] option {
+  background-color: #faebd7;
+}
+
+.color-picker {
+  position: relative;
+}
 
 input[type='color'] {
   opacity: 0;
-  border: none;
-  /* visibility: hidden; */
-}
-
-input[type='color']:focus {
-  outline: none;
+  width: 42px;
+  height: 45px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 footer {

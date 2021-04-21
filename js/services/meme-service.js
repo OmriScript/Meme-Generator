@@ -1,5 +1,6 @@
 'use strict';
 
+let gSavedMemes = [];
 let gKeywords = { crazy: 1, human: 1, animal: 1, happy: 1 };
 let gImgs = [
   { id: 1, url: 'img/1.jpg', keywords: ['crazy', 'human'] },
@@ -30,14 +31,16 @@ let gMeme = {
       txt: 'Enter Text Here 1',
       size: 40,
       align: 'left',
-      color: 'white',
+      color: '#ffffff',
+      font: 'Impact',
       pos: { x: 10, y: 50 },
     },
     {
       txt: 'Enter Text Here 2',
       size: 40,
       align: 'left',
-      color: 'white',
+      color: '#ffffff',
+      font: 'Impact',
       pos: { x: 10, y: 480 },
     },
   ],
@@ -57,6 +60,10 @@ function getLineTxt() {
 
 function getSelectedLineIdx() {
   return gMeme.selectedLineIdx;
+}
+
+function getSelectedLine() {
+  return gMeme.lines[gMeme.selectedLineIdx];
 }
 
 function editSelectedLineTxt(text) {
@@ -132,7 +139,8 @@ function _createLine() {
     txt: 'Enter New Text Here',
     size: 40,
     align: 'left',
-    color: 'white',
+    color: '#ffffff',
+    font: 'Impact',
     pos: { x: 10, y: onGetCanvasHeight() / 2 },
   };
 }
@@ -145,4 +153,71 @@ function changeLine() {
   } else {
     gMeme.selectedLineIdx = 0;
   }
+}
+
+function changeTextColor(color) {
+  gMeme.lines[gMeme.selectedLineIdx].color = color;
+}
+
+function getTextColor() {
+  return gMeme.lines[gMeme.selectedLineIdx].color;
+}
+
+function changeStrokeColor(newStrokeColor) {
+  let strokeColor = newStrokeColor;
+  gMeme.lines[gMeme.selectedLineIdx].strokeColor = strokeColor;
+}
+
+function getStrokeColor() {
+  return gMeme.lines[gMeme.selectedLineIdx].strokeColor;
+}
+
+function fontChange(newFont) {
+  gMeme.lines[gMeme.selectedLineIdx].font = newFont;
+}
+
+function getDefaultFont() {
+  return gMeme.lines[gMeme.selectedLineIdx].font;
+}
+
+function getPos() {
+  return gMeme.lines[gMeme.selectedLineIdx].pos;
+}
+
+function getFontSize() {
+  return gMeme.lines[gMeme.selectedLineIdx].size;
+}
+function getLineText() {
+  return gMeme.lines[gMeme.selectedLineIdx].txt;
+}
+
+function resetMeme() {
+  gMeme = {
+    selectedImgId: 1,
+    selectedLineIdx: 0,
+    lines: [
+      {
+        txt: 'Enter Text Here 1',
+        size: 40,
+        align: 'left',
+        color: '#ffffff',
+        font: 'Impact',
+        pos: { x: 10, y: 50 },
+      },
+      {
+        txt: 'Enter Text Here 2',
+        size: 40,
+        align: 'left',
+        color: '#ffffff',
+        font: 'Impact',
+        pos: { x: 10, y: 480 },
+      },
+    ],
+  };
+}
+
+function saveMeme() {
+  gSavedMemes.push(gMeme);
+  // console.log(gSavedMemes);
+  // console.log(gMeme);
 }

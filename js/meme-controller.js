@@ -1,6 +1,7 @@
 'use strict';
 let gCanvas;
 let gCtx;
+let gIsDownload = false;
 
 function onInit() {
   gCanvas = document.querySelector('.meme-canvas');
@@ -9,18 +10,22 @@ function onInit() {
 }
 
 function onDrawText(currLine) {
-  // gCtx.lineWidth = 1;
+  if (currLine.strokeColor) {
+    gCtx.strokeStyle = currLine.strokeColor;
+  } else {
+    gCtx.strokeStyle = '#000000';
+  }
   gCtx.fillStyle = `${currLine.color}`;
-  // gCtx.strokeStyle = 'white';
-  gCtx.font = `${currLine.size}px impact`;
+  gCtx.font = `${currLine.size}px ${currLine.font}`;
   gCtx.textAlign = `${currLine.align}`;
   gCtx.fillText(`${currLine.txt}`, `${currLine.pos.x}`, `${currLine.pos.y}`);
   gCtx.strokeText(`${currLine.txt}`, `${currLine.pos.x}`, `${currLine.pos.y}`);
+  // gCtx.strokeRect(100, 100, 200, 200);
 
   // put border on curr line
   // let currLineIdx = getSelectedLineIdx();
-
-  //
+  // let strokeColor = getStrokeColor();
+  // console.log(strokeColor, 'strokeColor');
 }
 
 function renderCanvas() {
@@ -35,6 +40,10 @@ function renderCanvas() {
 
   let lines = getLines();
   lines.map((line) => onDrawText(line));
+  if (!gIsDownload) {
+    markSelectedLine();
+  }
+
   // onDrawText(currMeme.lines[currLineIdx]);
   // console.log(getLines());
   // onMarkSelectedLine();
@@ -97,8 +106,8 @@ function onDeleteLine() {
 }
 
 function onAddLine() {
-  console.log('add');
   addLine();
+  resetFontOption();
   renderCanvas();
 }
 
@@ -115,11 +124,6 @@ function onChangeLine() {
   renderCanvas();
 }
 
-function onMarkSelectedLine() {
-  let currLineIdx = getSelectedLineIdx();
-  // console.log(currLineIdx, 'currLineIdx');
-}
-
 function toggleMenu() {
   console.log('toggleMenu');
   document.body.classList.toggle('menu-open');
@@ -131,6 +135,76 @@ function showEditorHideGallery() {
 }
 
 function showGalleryHideEditor() {
+  resetMeme();
   document.querySelector('.editor-container').style.display = 'none';
   document.querySelector('.gallery-container').style.display = 'block';
+}
+
+function onChangeTextColor(el) {
+  let color = el.value;
+  changeTextColor(color);
+  renderCanvas();
+}
+
+function onGetTextColor() {
+  let color = getTextColor();
+  document.querySelector('input[id="text-color-picker"]').value = color;
+}
+
+function onChangeStrokeColor(el) {
+  let strokeColor = el.value;
+  changeStrokeColor(strokeColor);
+  renderCanvas();
+}
+
+function onGetStrokeColor() {
+  let strokeColor = getStrokeColor();
+  document.querySelector('input[id="stroke-color-picker"]').value = strokeColor;
+}
+
+function onFontChange(el) {
+  let font = el.value;
+  fontChange(font);
+  renderCanvas();
+}
+
+function resetFontOption() {
+  let defaultFont = getDefaultFont();
+  document.querySelector('select[name="font-select"]').value = defaultFont;
+}
+
+function markSelectedLine() {
+  let posX = getPos().x;
+  let posY = getPos().y;
+  let fontSize = getFontSize();
+  drawRect(posX - 6, posY - fontSize);
+}
+
+// TODO: fix blue outline
+
+function drawRect(x, y) {
+  gCtx.beginPath();
+  let fontSize = getFontSize();
+  let lineText = getLineText();
+  let lineTextProps = gCtx.measureText(lineText);
+  let rectWidth = lineTextProps.actualBoundingBoxRight + 10;
+  // console.log(lineTextProps);
+  // console.log(lineTextProps.actualBoundingBoxAscent);
+  gCtx.rect(x, y, rectWidth, fontSize + 6);
+  gCtx.strokeStyle = 'blue';
+  gCtx.stroke();
+}
+
+function downloadCanvas(elLink) {
+  gIsDownload = true;
+  renderCanvas();
+  const data = gCanvas.toDataURL();
+  elLink.href = data;
+  elLink.download = 'myMeme';
+  gIsDownload = false;
+  renderCanvas();
+}
+
+function onSaveMeme() {
+  saveMeme();
 }
